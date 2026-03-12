@@ -21,9 +21,12 @@ from time import time
 from os import listdir
 
 class Optimizer():
-    def __init__(self, filePath, inputFile, functionals, basis, addKeywords, charge, multiplicity, cpu, mem, tolerance, startOmega, endOmega, qmprog, arq, freq, readCHK, MK_Molecule, target, header, csv_file, polarAxis):
+    def __init__(self, filePath, inputFileNeutral, inputFileCation, inputFileAnion, functionals, basis, addKeywords, charge, multiplicity, cpu, mem, tolerance, startOmega, endOmega, qmprog, arq, freq, readCHK, MK_MoleculeNeutral, MK_MoleculeCation, MK_MoleculeAnion, target, header, csv_file, polarAxis):
+        
         self._filePath = filePath
-        self._inputFile = inputFile
+        self._inputFileNeutral = inputFileNeutral
+        self._inputFileCation = inputFileCation
+        self._inputFileAnion = inputFileAnion
         self._functionals = functionals
         self._basis = basis
         self._addKeywords = addKeywords
@@ -38,7 +41,9 @@ class Optimizer():
         self._header = arq
         self._freq = freq
         self._readCHK = readCHK
-        self.MK_Molecule = MK_Molecule
+        self.MK_MoleculeNeutral = MK_MoleculeNeutral
+        self.MK_MoleculeCation = MK_MoleculeCation
+        self.MK_MoleculeAnion = MK_MoleculeAnion
         self.target = target
         self._header = header
         self._csvfile = csv_file
@@ -56,10 +61,10 @@ class Optimizer():
         omega_values.append(x1)
         omega_values.append(x2)
 
-        CI = createInput(self._filePath, self._inputFile, self._functionals, self._basis, self._addKeywords, self._cpu, self._mem, self._freq, self._readCHK)
+        CI = createInput(self._filePath, self._inputFileNeutral, self._inputFileCation, self._inputFileAnion, self._functionals, self._basis, self._addKeywords, self._cpu, self._mem, self._freq, self._readCHK)
 
-        files_x1 = CI.createGaussianInput(x1, self.MK_Molecule, self.target)
-        files_x2 = CI.createGaussianInput(x2, self.MK_Molecule, self.target)
+        files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
+        files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
 
         files = files_x1 + files_x2
 

@@ -17,9 +17,11 @@
 
 
 class createInput(object):
-    def __init__(self, path, inputFile, functional, basis, addKeywords, cpu, mem, freq, readCHK):
+    def __init__(self, path, inputFileNeutral, inputFileCation, inputFileAnion, functional, basis, addKeywords, cpu, mem, freq, readCHK):
         self._path = path
-        self._inputFile = inputFile
+        self._inputFileNeutral = inputFileNeutral
+        self._inputFileCation = inputFileCation
+        self._inputFileAnion = inputFileAnion
         self._functional = functional
         self._basis = basis
         self._addKeywords = addKeywords
@@ -28,16 +30,16 @@ class createInput(object):
         self._freq = freq
         self._readCHK = readCHK
 
-    def createGaussianInput(self, omega, molecule, target):
+    def createGaussianInput(self, omega, moleculeNeutral, moleculeCation, moleculeAnion, target):
 
         self.convertOmega2String(omega)
 
         files = []
 
         try:
-            name = self._inputFile.split('.')[0]
+            name = self._inputFileNeutral.split('.')[0]
         except:
-            name = self._inputFile
+            name = self._inputFileNeutral.split('.')[0]
 
         omega = self.omega
         nameW = self.nameW
@@ -56,6 +58,12 @@ class createInput(object):
             if target in ['jgap', 'deltaip']:
                 for state, params in states.items():
                     fname = "{}_w{}_{}.gjf".format(name, nameW, state)
+                    if state == "neutral":
+                        molecule = moleculeNeutral
+                    elif state == "cation":
+                        molecule = moleculeCation
+                    else:
+                        molecule = moleculeAnion
                     molecule.toGJF(
                         fileName=fname,
                         method=self._functional,

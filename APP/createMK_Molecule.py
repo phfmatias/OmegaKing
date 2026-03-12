@@ -32,13 +32,32 @@ class createMK_Molecule:
         if extension == '.gjf' or extension == '.com':
             mol = Molecule()
             arq = open(self._path + '/' + file, 'r').readlines()
+            states = ['0 1\n', '1 2\n', '-1 2\n']
             for line in arq:
+                if line in states:
+                    start = arq.index(line) + 1
+                    break
+            for line in arq[start:]:
+                if line == '\n':
+                    end = arq.index(line, start)
+
+            for line in arq[start:end]:
                 try:
                     element = line.split()[0]
                     x = float(line.split()[1])
                     y = float(line.split()[2])
                     z = float(line.split()[3])
                     mol.addAtom(element, x, y, z)
+                except:
+                    pass
+
+            for line in arq[end:]:
+                try:
+                    xq = float(line.split()[0])
+                    yq = float(line.split()[1])
+                    zq = float(line.split()[2])
+                    qq = float(line.split()[3])
+                    mol.addChargePoints(xq, yq, zq, qq)
                 except:
                     pass
             

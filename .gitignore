@@ -1,0 +1,47 @@
+# ── Python ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# ── Gaussian ─────────────────────────────────────────
+*.chk
+*.fchk
+*.rwf
+*.d2e
+*.int
+*.inp
+*.gjf
+*.log
+*.com
+*.Chk
+Gau-*
+fort.*
+
+# ── VS Code ───────────────────────────────────────────
+.vscode/
+*.code-workspace
+
+# ── OS ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*~
+
+# ── Outputs / results ─────────────────────────────────
+*.xyz
+*.mol2
+*.cube
+*.out
+results/
+outputs/

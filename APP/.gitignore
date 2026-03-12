@@ -1,0 +1,7 @@
+# FOLDERS:
+__pycache__/
+
+# FILES:
+*.pyc
+*.pyo
+

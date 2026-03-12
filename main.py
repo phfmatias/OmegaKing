@@ -35,7 +35,7 @@ if __name__ == "__main__":
         header.write('{}: {}\n'.format(i, vars(parameters)[i]))
     header.write('------------ CALCULATIONS -------------\n')
     
-    M = Moderator(parameters.pwd, parameters.name,parameters.functional, parameters.basis, parameters.aditonalKeywords, parameters.charge, parameters.multiplicity,parameters.ncores, parameters.mem,parameters.tolerance, parameters.startOmega, parameters.endOmega, parameters.qmprog, header, parameters.freq, parameters.readCHK, parameters.parameter, header, csv_file, parameters.polarAxis)
+    M = Moderator(parameters.pwd, parameters.nameNeutral, parameters.nameCation, parameters.nameAnion, parameters.functional, parameters.basis, parameters.aditonalKeywords, parameters.charge, parameters.multiplicity,parameters.ncores, parameters.mem,parameters.tolerance, parameters.startOmega, parameters.endOmega, parameters.qmprog, header, parameters.freq, parameters.readCHK, parameters.parameter, header, csv_file, parameters.polarAxis)
 
     header.write('---------------------------------------\n')
 

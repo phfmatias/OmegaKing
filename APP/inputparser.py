@@ -28,7 +28,9 @@ class inputParser:
         self.tolerance = 0.01      
         self.startOmega = 0.01
         self.endOmega =  1.00
-        self.name = 'omega'
+        self.nameNeutral = 'omega'
+        self.nameCation = 'omega'
+        self.nameAnion = 'omega'
         self.aditonalKeywords = ''
         self.cPoints = False
         self.polarAxis = 'iso'
@@ -53,8 +55,12 @@ class inputParser:
                 self.parameter = line.split()[2].lower()
             if 'ncores' in line.split():
                 self.ncores = int(line.split()[2]) 
-            if 'name' in line.split():
-                self.name = line.split()[2]
+            if 'nameNeutral' in line.split():
+                self.nameNeutral = line.split()[2]
+            if 'nameCation' in line.split():
+                self.nameCation = line.split()[2]
+            if 'nameAnion' in line.split():
+                self.nameAnion = line.split()[2]
             if 'basis' in line.split():
                 self.basis = line.split()[2]
             if 'functional' in line.split():
