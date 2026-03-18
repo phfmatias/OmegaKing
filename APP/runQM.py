@@ -29,7 +29,7 @@ for p in popen_list:
 
 '''
 
-from os import popen
+from os import system
 from time import time
 
 class runQM():
@@ -42,30 +42,21 @@ class runQM():
         if len(self._files) <= 3:
             
             start = time()
-            popen_list = []
             for file in self._files:
-                popen_list.append(popen('g16 {}'.format(file), 'r'))
-            for p in popen_list:
-                p.read()
+                system('g16 {}'.format(file))
             end = start - time()
             self._header.write('Files {} runned in {:.2f} seconds\n' .format(', '.join(self._files), abs(end)))
 
         else:
             start = time()
-            popen_list = []
             for file in self._files[0:3]:
-                popen_list.append(popen('g16 {}'.format(file), 'r'))
-            for p in popen_list:
-                p.read()
+                system('g16 {}'.format(file))
             end = start - time()
             self._header.write('Files {} runned in {:.2f} seconds\n' .format(', '.join(self._files[0:3]), abs(end)))
             
             start = time()
-            popen_list = []
             for file in self._files[3:]:
-                popen_list.append(popen('g16 {}'.format(file), 'r'))
-            for p in popen_list:
-                p.read()
+                system('g16 {}'.format(file))
             end = start - time()
             self._header.write('Files {} runned in {:.2f} seconds\n' .format(', '.join(self._files[3:]), abs(end)))
 

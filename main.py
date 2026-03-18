@@ -41,9 +41,10 @@ if __name__ == "__main__":
 
     csv_file.close()
 
-    Plotter(parameters.name, parameters.parameter, parameters.polarAxis)
+    Plotter(parameters.nameNeutral, parameters.parameter, parameters.polarAxis)
 
     end = start - time()
+
 
     header.write('Total time: {:.2f} seconds\n' .format(abs(end)))
     

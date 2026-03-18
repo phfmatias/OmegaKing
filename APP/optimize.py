@@ -20,6 +20,24 @@ from APP.header import *
 from time import time
 from os import listdir
 
+
+def _omega_tag(value):
+    """Build the omega tag used in generated filenames (e.g., 0.3 -> '03')."""
+    return str(round(value, 2)).replace('.', '')
+
+
+def _state_sorted_files(files):
+    order = {"neutral": 0, "cation": 1, "anion": 2}
+    return sorted(files, key=lambda x: order[[key for key in order if key in x][0]])
+
+
+def _existing_log_files_for_omega(value):
+    """Return only logs for one exact omega and sorted as neutral/cation/anion."""
+    omega_tag = _omega_tag(value)
+    pattern = '_w{}_'.format(omega_tag)
+    files = [x for x in listdir() if x.endswith('.log') and pattern in x]
+    return _state_sorted_files(files)
+
 class Optimizer():
     def __init__(self, filePath, inputFileNeutral, inputFileCation, inputFileAnion, functionals, basis, addKeywords, charge, multiplicity, cpu, mem, tolerance, startOmega, endOmega, qmprog, arq, freq, readCHK, MK_MoleculeNeutral, MK_MoleculeCation, MK_MoleculeAnion, target, header, csv_file, polarAxis):
         
@@ -69,7 +87,8 @@ class Optimizer():
         files = files_x1 + files_x2
 
         if self.target == 'jgap':
-            self._csvfile.write('omega,ip,ea,jip,jea,jgap\n')
+            self._csvfile.write('omega,jgap,jip,jea,SCFCation,SCFAnion,SCFNeutral,HomoNeutral,HomoAnion,HomoCation,LumoNeutral,LumoAnion,LumoCation,IP,EA\n')
+            #self._csvfile.write('omega,ip,ea,jip,jea,jgap\n')
         elif self.target == 'polarizability':
             self._csvfile.write('omega,polarizability({})\n'.format(self._polarAxis))
         elif self.target == 'deltaip':
@@ -87,13 +106,10 @@ class Optimizer():
             RQM = []
             
             if x1 in omega_values:
-                sufix = '_w{}'.format(str(x1).replace('.', ''))
-                files_x1 = [x for x in listdir() if sufix in x and '.log' in x]
-                try:
-                    order = {"neutral": 0, "cation": 1, "anion": 2}
-                    files_x1.sort(key=lambda x: order[[key for key in order if key in x][0]])
-                except:
-                    pass
+                files_x1 = _existing_log_files_for_omega(x1)
+                if len(files_x1) != 3:
+                    files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
+                    RQM.extend(files_x1)
             
             elif x1 not in omega_values:
                 files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
@@ -101,13 +117,10 @@ class Optimizer():
                 omega_values.append(x1)
 
             if x2 in omega_values:
-                sufix = '_w{}'.format(str(x2).replace('.', ''))
-                files_x2 = [x for x in listdir() if sufix in x and '.log' in x]
-                try:
-                    order = {"neutral": 0, "cation": 1, "anion": 2}
-                    files_x2.sort(key=lambda x: order[[key for key in order if key in x][0]])
-                except:
-                    pass
+                files_x2 = _existing_log_files_for_omega(x2)
+                if len(files_x2) != 3:
+                    files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
+                    RQM.extend(files_x2)
 
             elif x2 not in omega_values:
                 files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)

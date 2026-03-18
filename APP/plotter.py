@@ -14,6 +14,7 @@
 
 import matplotlib.pyplot as plt
 from pandas import read_csv
+from sys import argv
 
 class Plotter():
     def __init__(self, name, target, polarAxis):
@@ -30,6 +31,7 @@ class Plotter():
 
     def plot_jgap(self):
         data = read_csv('OmegaGolden.csv')
+        print(data)
         data = data.drop_duplicates(subset=['omega'])
         data = data.sort_values(by='omega')
         data.to_csv('OmegaGolden.csv', index=False)
@@ -56,3 +58,20 @@ class Plotter():
         plt.grid(True, linestyle='--', alpha=0.7)
         plt.tight_layout()
         plt.savefig('{}_Polarizability.png'.format(self.name), dpi=300)
+
+if __name__ == '__main__':
+    # python3 plotter.py <name> <target> <polarAxis>
+    # target: 'jgap' or 'polarizability'
+    # polarAxis: 'xx', 'yy' or 'zz'
+
+    if len(argv) < 3:
+        print('Usage: python3 plotter.py <name> <target> <polarAxis>')
+        print('target: "jgap" or "polarizability"')
+        print('polarAxis: "xx", "yy" or "zz"')
+
+    else:
+        name = argv[1]
+        target = argv[2]
+        polarAxis = argv[3] if len(argv) > 3 else 'xx'
+        Plotter(name, target, polarAxis)
+    
