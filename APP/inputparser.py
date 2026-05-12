@@ -86,6 +86,10 @@ class inputParser:
             if 'readCHK' in line.split():
                 self.readCHK = line.split()[2]
   
+        if self.nameNeutral != 'omega' and self.nameCation == 'omega' and self.nameAnion == 'omega':
+            self.nameCation = self.nameNeutral
+            self.nameAnion = self.nameNeutral
+
         params_file.close()
 
 if __name__ == "__main__":
