@@ -30,7 +30,7 @@ class createInput(object):
         self._freq = freq
         self._readCHK = readCHK
 
-    def createGaussianInput(self, omega, moleculeNeutral, moleculeCation, moleculeAnion, target):
+    def createGaussianInput(self, omega, moleculeNeutral, moleculeCation, moleculeAnion, target, filename):
 
         self.convertOmega2String(omega)
 
@@ -57,7 +57,7 @@ class createInput(object):
             files = []
             if target in ['jgap', 'deltaip']:
                 for state, params in states.items():
-                    fname = "{}_w{}_{}.gjf".format(name, nameW, state)
+                    fname = "{}_w{}_{}.gjf".format(filename, nameW, state)
                     if state == "neutral":
                         molecule = moleculeNeutral
                     elif state == "cation":
@@ -76,7 +76,7 @@ class createInput(object):
                     )
                     files.append(fname)
             else: 
-                fname = "{}_w{}.gjf".format(name, nameW)
+                fname = "{}_w{}.gjf".format(filename, nameW)
                 molecule.toGJF(
                     fileName=fname,
                     method=self._functional,

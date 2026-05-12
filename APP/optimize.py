@@ -39,7 +39,7 @@ def _existing_log_files_for_omega(value):
     return _state_sorted_files(files)
 
 class Optimizer():
-    def __init__(self, filePath, inputFileNeutral, inputFileCation, inputFileAnion, functionals, basis, addKeywords, charge, multiplicity, cpu, mem, tolerance, startOmega, endOmega, qmprog, arq, freq, readCHK, MK_MoleculeNeutral, MK_MoleculeCation, MK_MoleculeAnion, target, header, csv_file, polarAxis):
+    def __init__(self, filePath, inputFileNeutral, inputFileCation, inputFileAnion, functionals, basis, addKeywords, charge, multiplicity, cpu, mem, tolerance, startOmega, endOmega, qmprog, arq, freq, readCHK, MK_MoleculeNeutral, MK_MoleculeCation, MK_MoleculeAnion, target, header, csv_file, polarAxis, filename):
         
         self._filePath = filePath
         self._inputFileNeutral = inputFileNeutral
@@ -66,6 +66,7 @@ class Optimizer():
         self._header = header
         self._csvfile = csv_file
         self._polarAxis = polarAxis
+        self._filename = filename
 
     def optimize(self):
 
@@ -81,8 +82,8 @@ class Optimizer():
 
         CI = createInput(self._filePath, self._inputFileNeutral, self._inputFileCation, self._inputFileAnion, self._functionals, self._basis, self._addKeywords, self._cpu, self._mem, self._freq, self._readCHK)
 
-        files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
-        files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
+        files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target, self._filename)
+        files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target, self._filename)
 
         files = files_x1 + files_x2
 

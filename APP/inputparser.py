@@ -37,6 +37,7 @@ class inputParser:
         self.system = 'Desktop'
         self.freq = [False, ]
         self.readCHK = None
+        self.filename = 'Omega'
         self.getParams()
 
     def getParams(self):
@@ -85,6 +86,8 @@ class inputParser:
                 self.freq = [True, line.split()[-1]]
             if 'readCHK' in line.split():
                 self.readCHK = line.split()[2]
+            if 'filename' in line.split():
+                self.filename = line.split()[2]
   
         if self.nameNeutral != 'omega' and self.nameCation == 'omega' and self.nameAnion == 'omega':
             self.nameCation = self.nameNeutral

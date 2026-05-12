@@ -16,7 +16,7 @@ from APP.createMK_Molecule import *
 from APP.optimize import *
 
 class Moderator(object):
-    def __init__(self, path, inputFileNeutral, inputFileCation, inputFileAnion, functionals, basis, addKeywords, charge, multiplicity, cpu, mem, tolerance, startOmega, endOmega, qmprog, arq, freq, readCHK, target, header, csv_file, polarAxis):
+    def __init__(self, path, inputFileNeutral, inputFileCation, inputFileAnion, functionals, basis, addKeywords, charge, multiplicity, cpu, mem, tolerance, startOmega, endOmega, qmprog, arq, freq, readCHK, target, header, csv_file, polarAxis, filename):
         
         self._path = path
         self._inputfileNeutral = inputFileNeutral
@@ -40,6 +40,7 @@ class Moderator(object):
         self._header = header
         self._csvfile = csv_file
         self._polarAxis = polarAxis
+        self._filename = filename
         self.MK_MoleculeNeutral = createMK_Molecule(self._path, self._inputfileNeutral).MK_Molecule
         self.MK_MoleculeCation = createMK_Molecule(self._path, self._inputfileCation).MK_Molecule
         self.MK_MoleculeAnion = createMK_Molecule(self._path, self._inputfileAnion).MK_Molecule
@@ -47,7 +48,7 @@ class Moderator(object):
 
     def OptimizeFunctional(self):
 
-        x = Optimizer(self._path, self._inputfileNeutral, self._inputfileCation, self._inputfileAnion, self._functionals, self._basis, self._addKeywords, self._charge, self._multiplicity, self._cpu, self._mem, self._tolerance, self._startOmega, self._endOmega, self._qmprog, self._header, self._freq, self._readCHK, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target, self._header, self._csvfile, self._polarAxis)
+        x = Optimizer(self._path, self._inputfileNeutral, self._inputfileCation, self._inputfileAnion, self._functionals, self._basis, self._addKeywords, self._charge, self._multiplicity, self._cpu, self._mem, self._tolerance, self._startOmega, self._endOmega, self._qmprog, self._header, self._freq, self._readCHK, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target, self._header, self._csvfile, self._polarAxis, self._filename)
 
         x.optimize()
 
