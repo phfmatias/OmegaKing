@@ -109,22 +109,22 @@ class Optimizer():
             if x1 in omega_values:
                 files_x1 = _existing_log_files_for_omega(x1)
                 if len(files_x1) != 3:
-                    files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
+                    files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target, self._filename)
                     RQM.extend(files_x1)
             
             elif x1 not in omega_values:
-                files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
+                files_x1 = CI.createGaussianInput(x1, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target, self._filename)
                 RQM.extend(files_x1)
                 omega_values.append(x1)
 
             if x2 in omega_values:
                 files_x2 = _existing_log_files_for_omega(x2)
                 if len(files_x2) != 3:
-                    files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
+                    files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target, self._filename)
                     RQM.extend(files_x2)
 
             elif x2 not in omega_values:
-                files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target)
+                files_x2 = CI.createGaussianInput(x2, self.MK_MoleculeNeutral, self.MK_MoleculeCation, self.MK_MoleculeAnion, self.target, self._filename)
                 RQM.extend(files_x2)
                 omega_values.append(x2)
             
