@@ -1,6 +1,9 @@
 # ── Python ──────────────────────────────────────────
+APP/__pycache__/
 __pycache__/
+APP/__pycache__/*.pyc
 *.py[cod]
+*.pyc
 *.pyo
 *.pyd
 *.egg-info/
@@ -45,3 +48,4 @@ Thumbs.db
 *.out
 results/
 outputs/
+
